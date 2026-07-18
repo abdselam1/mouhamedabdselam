@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محمد عبد السلام | مطوّر مواقع المؤسسات — موريتانيا</title>
+    <meta name="description" content="محمد عبد السلام — أبني للمؤسسات مواقع كاملة ومتاجر إلكترونية بلوحات تحكم سهلة، مدعومة بخبرة في سيكولوجية الرغبة والتسويق الرقمي. نواكشوط، موريتانيا.">
+    <meta name="theme-color" content="#080502">
+    <meta property="og:title" content="محمد عبد السلام — مطوّر مواقع المؤسسات">
+    <meta property="og:description" content="سيكولوجية الرغبة تُقابل التسويق الرقمي — رحلة صحراوية رقمية من نواكشوط.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --night: #080502;
+            --night-soft: #0e0a05;
+            --panel: rgba(10, 7, 3, 0.72);
+            --panel-solid: rgba(9, 6, 2, 0.94);
+            --sand: #f3e7c8;
+            --sand-dim: #d6c59c;
+            --sand-faint: #94855f;
+            --gold: #c99a3f;
+            --gold-bright: #e8bf6a;
+            --gold-deep: #7a5a1e;
+            --hairline: rgba(201, 154, 63, 0.2);
+            --hairline-soft: rgba(201, 154, 63, 0.11);
+            --font-display-ar: 'Amiri', serif;
+            --font-body-ar: 'Tajawal', 'Segoe UI', sans-serif;
+            --font-display-lat: 'Cormorant Garamond', serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(201, 154, 63, 0.35) transparent;
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(201, 154, 63, 0.35); }
+
+        ::selection { background: rgba(201, 154, 63, 0.35); color: #fff8e8; }
+
+        body {
+            background: var(--night);
+            color: var(--sand);
+            font-family: var(--font-body-ar);
+            font-weight: 400;
+            line-height: 1.95;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+        html[dir="ltr"] body { font-family: var(--font-display-lat); }
+
+        .display { font-family: var(--font-display-ar); font-weight: 700; }
+        html[dir="ltr"] .display { font-family: var(--font-display-lat); font-weight: 500; }
+
+        .mono {
+            font-family: var(--font-mono);
+            font-weight: 400;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            font-size: 0.62rem;
+            color: var(--sand-faint);
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        a:focus-visible, button:focus-visible {
+            outline: 1px solid var(--gold);
+            outline-offset: 4px;
+        }
+
+        /* ============ PRELOADER ============ */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: var(--night);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2.2rem;
+            transition: opacity 1.1s var(--ease-lux), visibility 1.1s;
+        }
+        body.loaded .preloader { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-mark {
+            font-size: 2.6rem;
+            color: var(--gold);
+            line-height: 1;
+            animation: markBreathe 2.4s ease-in-out infinite;
+        }
+        @keyframes markBreathe {
+            0%, 100% { opacity: 0.45; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.06); }
+        }
+        .preloader-counter {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.5em;
+            color: var(--sand-dim);
+        }
+        .preloader-track {
+            width: min(220px, 50vw);
+            height: 1px;
+            background: rgba(201, 154, 63, 0.15);
+            overflow: hidden;
+        }
+        .preloader-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold-deep), var(--gold-bright));
+        }
+
+        /* ============ PHOTO JOURNEY — desktop: fixed cinematic crossfade ============ */
+        .bg-stack {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: #0a0703;
+            overflow: hidden;
+        }
+        .bg-ph {
+            position: absolute;
+            inset: -4%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.03);
+            filter: sepia(0.13) saturate(1.04) contrast(1.02) brightness(0.88);
+            transition: opacity 1.8s ease;
+            will-change: opacity, transform;
+        }
+        .bg-ph.on { opacity: 1; animation: kenburns 30s ease-in-out infinite alternate; }
+        @keyframes kenburns {
+            from { transform: scale(1.03) translateY(0.8%); }
+            to   { transform: scale(1.11) translateY(-0.8%); }
+        }
+        .bg-scrim {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(8, 5, 2, 0.5) 0%, rgba(8, 5, 2, 0.16) 30%, rgba(8, 5, 2, 0.2) 62%, rgba(8, 5, 2, 0.58) 100%);
+        }
+
+        .vignette {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                linear-gradient(180deg, rgba(5, 3, 1, 0.3) 0%, transparent 16%),
+                radial-gradient(ellipse at 50% 50%, transparent 62%, rgba(4, 2, 0, 0.5) 100%);
+        }
+
+        /* ============ HUD ============ */
+        .hud-item {
+            position: fixed;
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 1.4s ease 0.9s;
+        }
+        body.loaded .hud-item { opacity: 1; }
+
+        .hud-name {
+            top: 1.6rem;
+            inset-inline-start: 2rem;
+            line-height: 1.9;
+        }
+        .hud-name .mono { color: var(--sand-dim); display: block; }
+        .hud-name .mono + .mono { color: var(--sand-faint); font-size: 0.56rem; }
+
+        .hud-lang {
+            top: 1.6rem;
+            inset-inline-end: 2rem;
+            display: flex;
+            gap: 1.1rem;
+            align-items: center;
+        }
+        .lang-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            color: var(--sand-faint);
+            padding: 0.3rem 0.1rem;
+            transition: color 0.4s;
+        }
+        .lang-btn:hover { color: var(--sand); }
+        .lang-btn.active { color: var(--gold-bright); }
+
+        .hud-coords {
+            bottom: 1.6rem;
+            inset-inline-start: 2rem;
+        }
+        .hud-wa {
+            bottom: 1.6rem;
+            inset-inline-end: 2rem;
+        }
+        .hud-wa .mono { transition: color 0.4s; }
+        .hud-wa:hover .mono { color: var(--gold-bright); }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.7rem;
+            opacity: 0;
+            transition: opacity 1.4s ease 1.6s;
+        }
+        body.loaded .scroll-hint { opacity: 1; }
+        body.loaded.scrolled .scroll-hint { opacity: 0; transition: opacity 0.6s ease; }
+        .scroll-hint-line {
+            width: 1px;
+            height: 42px;
+            background: linear-gradient(180deg, transparent, var(--gold));
+            overflow: hidden;
+            position: relative;
+        }
+        .scroll-hint-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent, var(--gold-bright));
+            animation: scrollDrip 2.2s var(--ease-lux) infinite;
+        }
+        @keyframes scrollDrip {
+            0% { top: -100%; }
+            60%, 100% { top: 100%; }
+        }
+
+        /* ============ CURSOR ============ */
+        .cursor-dot, .cursor-ring {
+            position: fixed;
+            top: 0; left: 0;
+            pointer-events: none;
+            z-index: 300;
+            border-radius: 50%;
+            display: none;
+        }
+        .cursor-dot {
+            width: 5px; height: 5px;
+            background: var(--gold-bright);
+            transform: translate(-50%, -50%);
+        }
+        .cursor-ring {
+            width: 34px; height: 34px;
+            border: 1px solid rgba(201, 154, 63, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.35s var(--ease-lux), height 0.35s var(--ease-lux), border-color 0.35s;
+        }
+        body.cursor-hover .cursor-ring {
+            width: 58px; height: 58px;
+            border-color: rgba(232, 191, 106, 0.8);
+        }
+        @media (pointer: fine) {
+            .cursor-dot, .cursor-ring { display: block; }
+        }
+
+        /* ============ SCENES ============ */
+        main { position: relative; z-index: 10; }
+
+        .scene {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15vh 7vw;
+            position: relative;
+        }
+
+        .scene-inner { width: 100%; max-width: 1060px; margin: 0 auto; }
+
+        /* content panels — the "emerging" cards behind each dune */
+        .panel {
+            background: var(--panel);
+            -webkit-backdrop-filter: blur(18px) saturate(1.1);
+            backdrop-filter: blur(18px) saturate(1.1);
+            border: 1px solid var(--hairline-soft);
+            border-radius: 6px;
+            padding: clamp(2rem, 4.5vw, 3.8rem);
+        }
+
+        .scene-tag {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 2.8rem;
+        }
+        .scene-tag::after {
+            content: '';
+            height: 1px;
+            width: 64px;
+            background: linear-gradient(var(--dir-grad, 90deg), var(--gold), transparent);
+        }
+        html[dir="rtl"] .scene-tag::after { --dir-grad: -90deg; }
+        .scene-tag .mono { color: var(--gold); }
+
+        .ornament {
+            text-align: center;
+            color: var(--gold-deep);
+            font-size: 1.5rem;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+            opacity: 0.85;
+        }
+
+        /* --- emerge reveal: content rises from behind the dunes --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(80px) scale(0.965);
+            filter: blur(10px);
+            transition:
+                opacity 1.3s var(--ease-lux),
+                transform 1.3s var(--ease-lux),
+                filter 1.3s var(--ease-lux);
+            transition-delay: var(--d, 0s);
+            will-change: opacity, transform, filter;
+        }
+        .reveal.in { opacity: 1; transform: none; filter: none; }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100svh;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+        .hero-eyebrow {
+            margin-bottom: 2.6rem;
+            color: var(--gold);
+        }
+        .hero-name {
+            font-size: clamp(3.4rem, 12.5vw, 8.6rem);
+            line-height: 1.28;
+            color: #f7ecce;
+            text-shadow: 0 0 90px rgba(201, 154, 63, 0.3), 0 2px 30px rgba(5, 3, 1, 0.9);
+            margin-bottom: 1.4rem;
+        }
+        html[dir="ltr"] .hero-name {
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            line-height: 1.05;
+            font-size: clamp(2.6rem, 9.5vw, 7rem);
+        }
+        .hero-sep {
+            width: 120px;
+            height: 1px;
+            margin: 0 auto 1.8rem;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .hero-tagline {
+            font-family: var(--font-display-ar);
+            font-weight: 400;
+            font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+            color: var(--gold-bright);
+            margin-bottom: 1.6rem;
+            text-shadow: 0 2px 22px rgba(5, 3, 1, 0.95);
+        }
+        html[dir="ltr"] .hero-tagline {
+            font-family: var(--font-display-lat);
+            font-style: italic;
+        }
+        .hero-sub {
+            max-width: 580px;
+            margin: 0 auto;
+            font-size: clamp(0.98rem, 1.7vw, 1.1rem);
+            color: var(--sand-dim);
+            text-shadow: 0 2px 18px rgba(5, 3, 1, 0.95), 0 0 40px rgba(5, 3, 1, 0.7);
+        }
+
+        .hero .stage {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 1.4s var(--ease-lux), transform 1.4s var(--ease-lux);
+        }
+        body.loaded .hero .stage { opacity: 1; transform: translateY(0); }
+        body.loaded .hero div.stage:nth-of-type(2) { transition-delay: 0.15s; } /* eyebrow (div 1 is the photo) */
+        body.loaded .hero h1.stage { transition-delay: 0.35s; }                 /* name */
+        body.loaded .hero div.stage:nth-of-type(3) { transition-delay: 0.65s; } /* separator */
+        body.loaded .hero p.stage:nth-of-type(1) { transition-delay: 0.8s; }    /* tagline */
+        body.loaded .hero p.stage:nth-of-type(2) { transition-delay: 1.0s; }    /* sub */
+
+        /* ============ MANIFESTO ============ */
+        .manifesto-text {
+            font-family: var(--font-display-ar);
+            font-weight: 400;
+            font-size: clamp(1.5rem, 3.8vw, 2.55rem);
+            line-height: 2.05;
+            color: #f2e5c2;
+            max-width: 920px;
+        }
+        html[dir="ltr"] .manifesto-text {
+            font-family: var(--font-display-lat);
+            line-height: 1.6;
+        }
+        .manifesto-text em {
+            font-style: normal;
+            color: var(--gold-bright);
+        }
+        html[dir="ltr"] .manifesto-text em { font-style: italic; }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem 5rem;
+            margin-top: 4rem;
+            padding-top: 2.4rem;
+            border-top: 1px solid var(--hairline-soft);
+        }
+        .stat-num {
+            font-family: var(--font-display-ar);
+            font-weight: 700;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            line-height: 1.15;
+            color: var(--gold);
+            display: block;
+        }
+        html[dir="ltr"] .stat-num { font-family: var(--font-display-lat); font-weight: 500; }
+        .stat-label {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.88rem;
+            color: var(--sand-dim);
+            max-width: 180px;
+            line-height: 1.75;
+        }
+
+        /* ============ EXPERTISE ============ */
+        .section-title {
+            font-size: clamp(1.9rem, 4.5vw, 3.1rem);
+            line-height: 1.5;
+            color: #f4e8c8;
+            margin-bottom: 3.4rem;
+            max-width: 760px;
+        }
+
+        .svc-list { border-top: 1px solid var(--hairline); }
+        .svc-row {
+            display: grid;
+            grid-template-columns: 4rem 1fr 1.6fr;
+            gap: 2rem;
+            padding: 2.4rem 0.5rem;
+            border-bottom: 1px solid var(--hairline);
+            transition: background 0.5s;
+        }
+        .svc-row:hover { background: rgba(201, 154, 63, 0.05); }
+        .svc-num {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            color: var(--gold-deep);
+            padding-top: 0.55rem;
+            transition: color 0.5s;
+        }
+        .svc-row:hover .svc-num { color: var(--gold-bright); }
+        .svc-title {
+            font-family: var(--font-display-ar);
+            font-weight: 700;
+            font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+            line-height: 1.6;
+            color: var(--sand);
+            transition: color 0.5s;
+        }
+        html[dir="ltr"] .svc-title { font-family: var(--font-display-lat); font-weight: 500; }
+        .svc-row:hover .svc-title { color: var(--gold-bright); }
+        .svc-desc {
+            font-size: 0.98rem;
+            color: var(--sand-dim);
+            line-height: 2;
+        }
+
+        /* ============ WORKS ============ */
+        .work-item {
+            display: block;
+            padding: 3rem 0.5rem;
+            border-bottom: 1px solid var(--hairline);
+            transition: background 0.5s;
+        }
+        .work-item:first-of-type { border-top: 1px solid var(--hairline); }
+        .work-item:hover { background: rgba(201, 154, 63, 0.05); }
+        .work-title {
+            font-size: clamp(2rem, 5.5vw, 3.6rem);
+            line-height: 1.45;
+            color: #f2e5c2;
+            display: flex;
+            align-items: baseline;
+            gap: 1.4rem;
+            transition: color 0.5s;
+        }
+        .work-item:hover .work-title { color: var(--gold-bright); }
+        .work-arrow {
+            font-family: var(--font-mono);
+            font-size: 0.55em;
+            color: var(--gold-deep);
+            transition: transform 0.5s var(--ease-lux), color 0.5s;
+            display: inline-block;
+        }
+        .work-item:hover .work-arrow {
+            color: var(--gold-bright);
+            transform: translate(6px, -6px);
+        }
+        html[dir="rtl"] .work-item:hover .work-arrow { transform: translate(-6px, -6px); }
+        .work-meta {
+            margin-top: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.4rem;
+        }
+        .work-meta .mono { letter-spacing: 0.18em; font-size: 0.66rem; color: var(--sand-dim); }
+        .work-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        .work-live::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--gold-bright);
+            animation: livePulse 2s ease-in-out infinite;
+        }
+        @keyframes livePulse {
+            0%, 100% { opacity: 0.4; box-shadow: 0 0 0 0 rgba(232, 191, 106, 0.4); }
+            50% { opacity: 1; box-shadow: 0 0 8px 1px rgba(232, 191, 106, 0.5); }
+        }
+
+        /* ============ PLANS ============ */
+        .plans-desc {
+            color: var(--sand-dim);
+            font-size: 0.98rem;
+            max-width: 540px;
+            margin: -1.8rem 0 3.4rem;
+        }
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--hairline-soft);
+            border: 1px solid var(--hairline-soft);
+        }
+        .plan {
+            background: rgba(10, 7, 3, 0.55);
+            padding: 2.6rem 1.9rem 2.3rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: background 0.5s;
+        }
+        .plan:hover { background: rgba(16, 11, 5, 0.7); }
+        .plan.featured {
+            background: linear-gradient(180deg, rgba(201, 154, 63, 0.1), rgba(201, 154, 63, 0.03));
+            outline: 1px solid rgba(201, 154, 63, 0.45);
+            outline-offset: -1px;
+        }
+        .plan-badge {
+            position: absolute;
+            top: -0.55rem;
+            inset-inline-start: 1.9rem;
+            background: #120c04;
+            padding: 0.1rem 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold-bright);
+            border: 1px solid rgba(201, 154, 63, 0.35);
+            border-radius: 3px;
+        }
+        .plan-name {
+            font-family: var(--font-display-ar);
+            font-weight: 700;
+            font-size: 1.55rem;
+            color: #f4e8c8;
+            margin-bottom: 0.7rem;
+        }
+        html[dir="ltr"] .plan-name { font-family: var(--font-display-lat); font-weight: 500; }
+        .plan-desc {
+            font-size: 0.86rem;
+            color: var(--sand-dim);
+            line-height: 1.9;
+            margin-bottom: 1.7rem;
+            min-height: 3.2em;
+        }
+        .plan-features {
+            list-style: none;
+            flex: 1;
+            margin-bottom: 2.1rem;
+        }
+        .plan-features li {
+            font-size: 0.87rem;
+            color: var(--sand-dim);
+            padding: 0.7rem 0;
+            border-top: 1px solid var(--hairline-soft);
+            display: flex;
+            gap: 0.7rem;
+            line-height: 1.75;
+        }
+        .plan-features li::before {
+            content: '✦';
+            color: var(--gold-deep);
+            font-size: 0.6rem;
+            padding-top: 0.35em;
+            flex-shrink: 0;
+        }
+        .plan-cta {
+            display: block;
+            text-align: center;
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(201, 154, 63, 0.45);
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--sand);
+            transition: background 0.4s, color 0.4s, border-color 0.4s;
+        }
+        .plan-cta:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--night);
+        }
+
+        /* ============ CONTACT ============ */
+        .contact { text-align: center; align-items: center; }
+        .contact .scene-tag { justify-content: center; }
+        .contact .scene-tag::after { display: none; }
+        .contact-title {
+            font-size: clamp(2.8rem, 9vw, 6rem);
+            line-height: 1.4;
+            color: #f7ecce;
+            text-shadow: 0 0 80px rgba(201, 154, 63, 0.3), 0 2px 26px rgba(5, 3, 1, 0.9);
+            margin-bottom: 1.8rem;
+        }
+        .contact-desc {
+            max-width: 540px;
+            margin: 0 auto 3rem;
+            color: var(--sand-dim);
+            font-size: 1rem;
+            text-shadow: 0 2px 18px rgba(5, 3, 1, 0.95);
+        }
+        .contact-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1.4rem;
+        }
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--gold), #a87c2a);
+            color: #140d02;
+            font-weight: 500;
+            font-family: inherit;
+            font-size: 1.02rem;
+            padding: 1.05rem 2.6rem;
+            border-radius: 100px;
+            transition: transform 0.4s var(--ease-lux), box-shadow 0.4s;
+        }
+        .btn-wa:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 44px rgba(201, 154, 63, 0.3);
+        }
+        .btn-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+        .btn-call {
+            padding: 1.05rem 2.2rem;
+            border: 1px solid rgba(201, 154, 63, 0.45);
+            border-radius: 100px;
+            font-size: 0.98rem;
+            color: var(--sand);
+            transition: border-color 0.4s, color 0.4s;
+        }
+        .btn-call:hover { border-color: var(--gold-bright); color: var(--gold-bright); }
+        .contact-number { margin-top: 2.6rem; direction: ltr; }
+        .contact-number .mono { font-size: 0.72rem; color: var(--sand-dim); }
+
+        /* ============ QUOTE INTERLUDES ============ */
+        .quote-scene { text-align: center; align-items: center; }
+        .quote-orn {
+            color: var(--gold-bright);
+            font-size: 1.4rem;
+            margin-bottom: 2.2rem;
+            opacity: 0.9;
+        }
+        .quote-text {
+            font-family: var(--font-display-ar);
+            font-weight: 400;
+            font-size: clamp(1.55rem, 4vw, 2.8rem);
+            line-height: 2.1;
+            color: #f7ecce;
+            max-width: 880px;
+            margin: 0 auto;
+            text-shadow: 0 2px 30px rgba(5, 3, 1, 0.95), 0 0 70px rgba(5, 3, 1, 0.75);
+        }
+        html[dir="ltr"] .quote-text { font-family: var(--font-display-lat); font-style: italic; line-height: 1.7; }
+        .quote-text em { font-style: normal; color: var(--gold-bright); }
+        .quote-src { margin-top: 2.4rem; }
+        .quote-src .mono { color: var(--gold); text-shadow: 0 2px 14px rgba(5, 3, 1, 0.95); }
+
+        /* ============ MOBILE-ONLY PHOTO ELEMENTS (hidden on desktop) ============ */
+        .chapter-cover, .scene-photo { display: none; }
+
+        /* ============ PHOTO CREDITS ============ */
+        .photo-credits { margin-top: 3.2rem; opacity: 0.7; }
+        .photo-credits .mono { font-size: 0.5rem; letter-spacing: 0.12em; text-transform: none; }
+
+        /* ============ DESKTOP ONLY ============ */
+        @media (min-width: 901px) {
+            .scene-inner.panel { max-width: 1060px; }
+        }
+
+        /* ============ TABLET ============ */
+        @media (max-width: 900px) {
+            .svc-row { grid-template-columns: 2.6rem 1fr; gap: 1.2rem 1.4rem; }
+            .svc-desc { grid-column: 2; }
+            .plans-grid { grid-template-columns: 1fr; }
+            .plan.featured { order: -1; }
+        }
+
+        /* ============ MOBILE — a distinct, calmer reading experience ============ */
+        @media (max-width: 640px) {
+            body { line-height: 1.85; }
+            .scene { padding: 11vh 5vw; }
+            .panel {
+                background: var(--panel-solid);
+                -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+                border-radius: 8px;
+                padding: 1.7rem 1.3rem;
+                border-color: var(--hairline);
+            }
+            /* simpler, cheaper emergence on phones */
+            .reveal {
+                transform: translateY(44px);
+                filter: none;
+                transition: opacity 0.9s var(--ease-lux), transform 0.9s var(--ease-lux);
+            }
+            .hud-name { inset-inline-start: 1.2rem; top: 1.1rem; }
+            .hud-lang { inset-inline-end: 1.2rem; top: 1.1rem; gap: 0.9rem; }
+            .hud-coords { display: none; }
+            .hud-wa {
+                inset-inline-end: auto;
+                inset-inline-start: auto;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                bottom: 1.1rem;
+                background: rgba(9, 6, 2, 0.85);
+                border: 1px solid var(--hairline);
+                border-radius: 100px;
+                padding: 0.55rem 1.2rem;
+                white-space: nowrap;
+            }
+            .scroll-hint { display: none; }
+            .hero-name {
+                line-height: 1.45;
+                font-size: 2.75rem;
+                text-shadow: 0 2px 26px rgba(5, 3, 1, 0.95), 0 0 60px rgba(5, 3, 1, 0.7);
+            }
+            .hero-tagline, .hero-sub { text-shadow: 0 2px 14px rgba(5, 3, 1, 0.95), 0 0 34px rgba(5, 3, 1, 0.85); }
+            .hero-sub { font-size: 0.95rem; }
+            .manifesto-text { font-size: 1.35rem; line-height: 2.1; }
+            .stats-row { gap: 1.8rem 2.2rem; margin-top: 2.8rem; }
+            .stat-label { font-size: 0.8rem; max-width: 140px; }
+            .scene-tag { margin-bottom: 2rem; }
+            .section-title { margin-bottom: 2.4rem; }
+            .svc-row { padding: 1.8rem 0.2rem; }
+            .svc-desc { font-size: 0.92rem; }
+            .work-item { padding: 2.2rem 0.2rem; }
+            .work-title { gap: 0.8rem; }
+            .work-meta { gap: 0.8rem; }
+            .plan { padding: 2.2rem 1.4rem 2rem; }
+            .contact-actions { flex-direction: column; width: 100%; }
+            .btn-wa, .btn-call { width: 100%; max-width: 320px; }
+            .contact-number { margin-top: 2rem; }
+            .contact { padding-bottom: 16vh; }
+            .hero-tagline { font-size: 1.32rem; }
+            .hero-sub { padding: 0 0.4rem; }
+            .section-title { font-size: 1.72rem; line-height: 1.6; }
+            .manifesto-text { color: #f6ecd2; }
+            .work-title { font-size: 1.85rem; }
+        }
+
+        /* ============ MOBILE — a separate editorial journey: real photos, full-bleed covers ============ */
+        @media (max-width: 768px) {
+            .bg-stack, .bg-scrim, .vignette { display: none; }
+            body { background: #0b0704; }
+            .cursor-dot, .cursor-ring { display: none !important; }
+
+            /* full-bleed photo behind hero, quotes and contact */
+            .scene-photo {
+                display: block;
+                position: absolute;
+                inset: 0;
+                overflow: hidden;
+                z-index: 0;
+            }
+            .scene-photo img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: sepia(0.12) saturate(1.05) brightness(0.85);
+            }
+            .scene-photo::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(8, 5, 2, 0.55) 0%, rgba(8, 5, 2, 0.24) 34%, rgba(8, 5, 2, 0.3) 62%, rgba(11, 7, 4, 0.94) 100%);
+            }
+            .scene-photo ~ * { position: relative; z-index: 2; }
+
+            /* chapter covers: full-bleed photo, chapter label burned into the lower corner */
+            .chaptered { padding-top: 0; justify-content: flex-start; }
+            .chapter-cover {
+                display: block;
+                position: relative;
+                height: 56svh;
+                margin: 0 -5vw 1.6rem;
+                overflow: hidden;
+            }
+            .chapter-cover img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: sepia(0.12) saturate(1.05) brightness(0.92);
+            }
+            .cover-scrim {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(11, 7, 4, 0.5) 0%, transparent 34%, transparent 52%, rgba(11, 7, 4, 0.97) 100%);
+            }
+            .cover-label {
+                position: absolute;
+                bottom: 1.15rem;
+                inset-inline-start: 1.35rem;
+            }
+            .cover-label .mono { color: var(--gold-bright); font-size: 0.62rem; }
+
+            .quote-scene { min-height: 88svh; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal, .hero .stage {
+                transition: opacity 0.6s ease;
+                transform: none;
+                filter: none;
+            }
+            .scroll-hint-line::after, .preloader-mark { animation: none; }
+            .work-live::before { animation: none; opacity: 1; }
+            .bg-ph.on { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" aria-hidden="true">
+        <div class="preloader-mark">۞</div>
+        <div class="preloader-track"><div class="preloader-bar" id="preloaderBar"></div></div>
+        <div class="preloader-counter"><span id="preloaderNum">000</span></div>
+    </div>
+
+    <!-- PHOTO JOURNEY (desktop crossfade stack) -->
+    <div class="bg-stack" aria-hidden="true">
+        <div class="bg-ph on" data-name="crest" data-src="assets/desert/crest.jpg"></div>
+        <div class="bg-ph" data-name="caravan" data-src="assets/desert/caravan.jpg"></div>
+        <div class="bg-ph" data-name="manuscript" data-src="assets/desert/manuscript.jpg"></div>
+        <div class="bg-ph" data-name="oldtown" data-src="assets/desert/oldtown.jpg"></div>
+        <div class="bg-ph" data-name="oasis" data-src="assets/desert/oasis.jpg"></div>
+        <div class="bg-ph" data-name="mosque" data-src="assets/desert/mosque.jpg"></div>
+        <div class="bg-ph" data-name="dusk" data-src="assets/desert/dusk.jpg"></div>
+    </div>
+    <div class="bg-scrim" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- HUD -->
+    <div class="hud-item hud-name">
+        <span class="mono">Mohamed Abdelsalam</span>
+        <span class="mono" data-lang-key="hudRole">مطوّر مواقع المؤسسات</span>
+    </div>
+    <div class="hud-item hud-lang" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="ar" aria-label="العربية">ع</button>
+        <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
+        <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+    </div>
+    <div class="hud-item hud-coords">
+        <span class="mono">18.07°N · 15.96°W — Nouakchott</span>
+    </div>
+    <a class="hud-item hud-wa" href="https://wa.me/22224555506" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <span class="mono">WhatsApp · +222 24 55 55 06</span>
+    </a>
+    <div class="scroll-hint" aria-hidden="true">
+        <span class="mono" data-lang-key="scrollHint">مرّر</span>
+        <div class="scroll-hint-line"></div>
+    </div>
+
+    <!-- CURSOR -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true"></div>
+
+    <main>
+        <!-- HERO — pure, empty desert. The journey has not begun. -->
+        <section class="scene hero" id="hero" data-bg="crest">
+            <div class="scene-photo" aria-hidden="true"><img src="assets/desert/crest-m.jpg" alt=""></div>
+            <div class="stage hero-eyebrow"><span class="mono" style="color: inherit;" data-lang-key="heroEyebrow">مطوّر مواقع المؤسسات — موريتانيا</span></div>
+            <h1 class="stage display hero-name" data-lang-key="heroName">محمد عبد السلام</h1>
+            <div class="stage hero-sep"></div>
+            <p class="stage hero-tagline" data-lang-key="heroTag">سيكولوجية الرغبة تُقابل التسويق الرقمي</p>
+            <p class="stage hero-sub" data-lang-key="heroSub">أبني للمؤسسات مواقع كاملة ومتاجر إلكترونية بلوحات تحكم سهلة — حضور رقمي يليق بمؤسستك، ويبيع.</p>
+        </section>
+
+        <!-- VISION — the caravan sets out -->
+        <section class="scene chaptered" id="vision" data-bg="caravan">
+            <div class="chapter-cover" aria-hidden="true">
+                <img src="assets/desert/caravan-m.jpg" alt="" loading="lazy">
+                <div class="cover-scrim"></div>
+                <div class="cover-label"><span class="mono" data-lang-key="sec1Tag">٠١ · الرؤية</span></div>
+            </div>
+            <div class="scene-inner panel reveal">
+                <div class="scene-tag"><span class="mono" data-lang-key="sec1Tag">٠١ · الرؤية</span></div>
+                <p class="manifesto-text" data-lang-key="manifesto">
+                    مواقع ومتاجر تُبنى <em>بصبر الصحراء</em>، وتُصقل <em>بدقّة الذهب</em>، وتُصمَّم <em>لتُحرّك الرغبة</em> —
+                    رحلة تبدأ بفهم عميق لجمهورك، وتنتهي بحضور رقمي يليق بمؤسستك ويبيع.
+                </p>
+                <div class="stats-row">
+                    <div>
+                        <span class="stat-num" data-lang-key="stat1Num">+٧</span>
+                        <span class="stat-label" data-lang-key="stat1">سنوات في سيكولوجية الرغبة والمبيعات</span>
+                    </div>
+                    <div>
+                        <span class="stat-num" data-lang-key="stat2Num">+٥</span>
+                        <span class="stat-label" data-lang-key="stat2">سنوات في التسويق الرقمي</span>
+                    </div>
+                    <div>
+                        <span class="stat-num" data-lang-key="stat3Num">+٢٠٠</span>
+                        <span class="stat-label" data-lang-key="stat3">مشروع لمؤسسات وأعمال رائدة</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERITAGE QUOTE — the manuscripts of Chinguetti -->
+        <section class="scene quote-scene" id="heritage" data-bg="manuscript">
+            <div class="scene-photo" aria-hidden="true"><img src="assets/desert/manuscript-m.jpg" alt="" loading="lazy"></div>
+            <div class="scene-inner">
+                <div class="quote-orn reveal" aria-hidden="true">۞</div>
+                <p class="display quote-text reveal" style="--d: 0.15s" data-lang-key="quote1">
+                    كما حفظت <em>شنقيط</em> المعرفةَ في مخطوطاتها تسعة قرون،
+                    أحفظ لمؤسستك مكانتها في العالم الرقمي.
+                </p>
+                <div class="quote-src reveal" style="--d: 0.3s"><span class="mono" data-lang-key="quote1Src">مخطوطات شنقيط — موريتانيا</span></div>
+            </div>
+        </section>
+
+        <!-- METHOD — a city built stone by stone -->
+        <section class="scene chaptered" id="method" data-bg="oldtown">
+            <div class="chapter-cover" aria-hidden="true">
+                <img src="assets/desert/oldtown-m.jpg" alt="" loading="lazy">
+                <div class="cover-scrim"></div>
+                <div class="cover-label"><span class="mono" data-lang-key="methodTag">٠٢ · الطريقة</span></div>
+            </div>
+            <div class="scene-inner panel reveal">
+                <div class="scene-tag"><span class="mono" data-lang-key="methodTag">٠٢ · الطريقة</span></div>
+                <h2 class="display section-title" data-lang-key="methodTitle">أربع محطات من الفكرة إلى الإطلاق</h2>
+                <div class="svc-list">
+                    <div class="svc-row">
+                        <span class="svc-num">I</span>
+                        <h3 class="svc-title" data-lang-key="m1t">الإصغاء</h3>
+                        <p class="svc-desc" data-lang-key="m1d">أبدأ بالاستماع: قصة مؤسستك، أهدافك، وجمهورك. لا تصميم قبل الفهم — فالموقع الناجح يُبنى على معرفة دقيقة بمن سيزوره ولماذا.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">II</span>
+                        <h3 class="svc-title" data-lang-key="m2t">التصميم</h3>
+                        <p class="svc-desc" data-lang-key="m2d">أرسم تجربة تقود الزائر بهدوء نحو القرار — تسلسل الصفحات، الرسائل، والألوان، كلها مبنية على سيكولوجية الرغبة وهوية علامتك.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">III</span>
+                        <h3 class="svc-title" data-lang-key="m3t">البناء</h3>
+                        <p class="svc-desc" data-lang-key="m3d">أبني موقعًا سريعًا وآمنًا متعدد اللغات، بلوحة تحكم بسيطة تُحدّث بها محتواك بنفسك دون أي خبرة تقنية.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">IV</span>
+                        <h3 class="svc-title" data-lang-key="m4t">الإطلاق والمرافقة</h3>
+                        <p class="svc-desc" data-lang-key="m4d">أطلق موقعك وأتابع أداءه بالأرقام، وأرافقك بالتحسين والدعم حتى يحقق الهدف الذي بُني لأجله.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPERTISE — the oasis -->
+        <section class="scene chaptered" id="expertise" data-bg="oasis">
+            <div class="chapter-cover" aria-hidden="true">
+                <img src="assets/desert/oasis-m.jpg" alt="" loading="lazy">
+                <div class="cover-scrim"></div>
+                <div class="cover-label"><span class="mono" data-lang-key="sec2Tag">٠٣ · الخبرات</span></div>
+            </div>
+            <div class="scene-inner panel reveal">
+                <div class="scene-tag"><span class="mono" data-lang-key="sec2Tag">٠٣ · الخبرات</span></div>
+                <h2 class="display section-title" data-lang-key="servicesTitle">خبرات تتكامل لتُنتج نتائج</h2>
+                <div class="svc-list">
+                    <div class="svc-row">
+                        <span class="svc-num">I</span>
+                        <h3 class="svc-title" data-lang-key="svc4Title">بناء مواقع المؤسسات</h3>
+                        <p class="svc-desc" data-lang-key="svc4Desc">مواقع مؤسسية ومتاجر إلكترونية كاملة متعددة اللغات (عربي، فرنسي، إنجليزي)، بلوحة تحكم سهلة تُدير بها محتواك بنفسك دون خبرة تقنية — سريعة، آمنة، ومتقنة على الجوال والحاسوب، من الفكرة إلى الإطلاق.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">II</span>
+                        <h3 class="svc-title" data-lang-key="svc2Title">سيكولوجية الرغبة</h3>
+                        <p class="svc-desc" data-lang-key="svc2Desc">7 سنوات من الدراسة والتطبيق في علم نفس الرغبة — أعرف متى يشتري العميل، ولماذا يتردد، وكيف أُقنعه دون أن يشعر أنه يُقاد. أطبّق مبادئ الندرة، الدليل الاجتماعي، والتحيّزات المعرفية بدقة.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">III</span>
+                        <h3 class="svc-title" data-lang-key="svc3Title">التسويق الرقمي الاستراتيجي</h3>
+                        <p class="svc-desc" data-lang-key="svc3Desc">5 سنوات في خنادق التسويق الرقمي — من تحليل البيانات إلى تحسين الحملات. أربط بين الصفحة والسوق، فأضمن أن التصميم لا يُعجب فقط، بل يُحقّق أرقاماً.</p>
+                    </div>
+                    <div class="svc-row">
+                        <span class="svc-num">IV</span>
+                        <h3 class="svc-title" data-lang-key="svc1Title">تصميم صفحات الهبوط</h3>
+                        <p class="svc-desc" data-lang-key="svc1Desc">تصاميم احترافية مبنية على فهم عميق لسلوك المستخدم، مع دعم كامل للغات متعددة (العربية، الإنجليزية، الفرنسية) وتجربة سلسة على جميع الأجهزة. كل بكسل في مكانه لخدمة هدف التحويل.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKS — at the mosque of Chinguetti -->
+        <section class="scene chaptered" id="works" data-bg="mosque">
+            <div class="chapter-cover" aria-hidden="true">
+                <img src="assets/desert/mosque-m.jpg" alt="" loading="lazy">
+                <div class="cover-scrim"></div>
+                <div class="cover-label"><span class="mono" data-lang-key="sec3Tag">٠٤ · الأعمال</span></div>
+            </div>
+            <div class="scene-inner panel reveal">
+                <div class="scene-tag"><span class="mono" data-lang-key="sec3Tag">٠٤ · الأعمال</span></div>
+                <h2 class="display section-title" data-lang-key="worksTitle">مشاريع حيّة الآن</h2>
+                <a class="work-item" href="https://abdselam1.github.io/rim-medical/index.html" target="_blank" rel="noopener">
+                    <h3 class="display work-title">Rim Medical <span class="work-arrow">↗</span></h3>
+                    <div class="work-meta">
+                        <span class="work-live" data-lang-key="workLive">يعمل الآن</span>
+                        <span class="mono" data-lang-key="work1Meta">متجر ثلاثي اللغات بلوحة تحكم · المعدات الطبية</span>
+                    </div>
+                </a>
+                <a class="work-item" href="https://abdselam1.github.io/rim-medical/sened.html" target="_blank" rel="noopener">
+                    <h3 class="display work-title"><span data-lang-key="work2Title">سند SENED</span> <span class="work-arrow">↗</span></h3>
+                    <div class="work-meta">
+                        <span class="work-live" data-lang-key="workLive">يعمل الآن</span>
+                        <span class="mono" data-lang-key="work2Meta">موقع مؤسسي فاخر بنظام بلاغات · المعدات الطبية</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- PLANS — choose your path along the crest -->
+        <section class="scene chaptered" id="plans" data-bg="crest">
+            <div class="chapter-cover" aria-hidden="true">
+                <img src="assets/desert/crest-m.jpg" alt="" loading="lazy">
+                <div class="cover-scrim"></div>
+                <div class="cover-label"><span class="mono" data-lang-key="sec4Tag">٠٥ · الخطط</span></div>
+            </div>
+            <div class="scene-inner panel reveal">
+                <div class="scene-tag"><span class="mono" data-lang-key="sec4Tag">٠٥ · الخطط</span></div>
+                <h2 class="display section-title" data-lang-key="plansTitle">اختر الخطة التي تناسب مؤسستك</h2>
+                <p class="plans-desc" data-lang-key="plansDesc">جميع الخطط قابلة للتخصيص حسب احتياجاتك. تواصل معي لمناقشة التفاصيل واستلام عرض سعر مخصص.</p>
+                <div class="plans-grid">
+                    <div class="plan">
+                        <h3 class="plan-name" data-lang-key="plan1Name">الأساسية</h3>
+                        <p class="plan-desc" data-lang-key="plan1Desc">للمؤسسات الناشئة التي تريد صفحة هبوط احترافية واحدة.</p>
+                        <ul class="plan-features">
+                            <li data-lang-key="plan1f1">موقع تعريفي مؤسسي أو صفحة هبوط</li>
+                            <li data-lang-key="plan1f2">دعم لغتين (العربية + الإنجليزية)</li>
+                            <li data-lang-key="plan1f3">تصميم متجاوب مع جميع الأجهزة</li>
+                            <li data-lang-key="plan1f4">تكامل مع واتساب ونماذج التواصل</li>
+                            <li data-lang-key="plan1f5">تحسين أساسي لمحركات البحث</li>
+                            <li data-lang-key="plan1f6">تسليم خلال 5-7 أيام عمل</li>
+                        </ul>
+                        <a href="https://wa.me/22224555506?text=مرحباً، أريد الاستفسار عن الخطة الأساسية" target="_blank" rel="noopener noreferrer" class="plan-cta" data-lang-key="planCta">استفسر عن الخطة</a>
+                    </div>
+                    <div class="plan featured">
+                        <span class="plan-badge" data-lang-key="planBadge">الأكثر طلباً</span>
+                        <h3 class="plan-name" data-lang-key="plan2Name">المتكاملة</h3>
+                        <p class="plan-desc" data-lang-key="plan2Desc">للمؤسسات المتوسطة الباحثة عن حل تسويقي متكامل مع سيكولوجية المبيعات.</p>
+                        <ul class="plan-features">
+                            <li data-lang-key="plan2f1">موقع مؤسسي كامل + حتى 3 صفحات هبوط</li>
+                            <li data-lang-key="plan2f2">دعم ثلاث لغات (عربية + إنجليزية + فرنسية)</li>
+                            <li data-lang-key="plan2f3">تطبيق مبادئ سيكولوجية الرغبة</li>
+                            <li data-lang-key="plan2f4">تحليل الجمهور المستهدف ورسائل مقنعة</li>
+                            <li data-lang-key="plan2f5">تكامل مع أدوات التسويق (Google، Meta)</li>
+                            <li data-lang-key="plan2f6">تقارير أداء شهرية</li>
+                            <li data-lang-key="plan2f7">دعم فني لمدة 30 يوماً</li>
+                        </ul>
+                        <a href="https://wa.me/22224555506?text=مرحباً، أريد الاستفسار عن الخطة المتكاملة" target="_blank" rel="noopener noreferrer" class="plan-cta" data-lang-key="planCta">استفسر عن الخطة</a>
+                    </div>
+                    <div class="plan">
+                        <h3 class="plan-name" data-lang-key="plan3Name">المؤسسية</h3>
+                        <p class="plan-desc" data-lang-key="plan3Desc">للمؤسسات الكبيرة والمشاريع المعقدة التي تحتاج حلاً شاملاً ومخصصاً بالكامل.</p>
+                        <ul class="plan-features">
+                            <li data-lang-key="plan3f1">مواقع ومتاجر إلكترونية وصفحات بلا حدود</li>
+                            <li data-lang-key="plan3f2">استراتيجية مبيعات متكاملة</li>
+                            <li data-lang-key="plan3f3">بحث متقدم في سيكولوجية الجمهور</li>
+                            <li data-lang-key="plan3f4">تكامل مع أنظمة المؤسسة (CRM)</li>
+                            <li data-lang-key="plan3f5">تحسين مستمر بناءً على البيانات</li>
+                            <li data-lang-key="plan3f6">دعم فني وأولوية في التنفيذ</li>
+                            <li data-lang-key="plan3f7">جلسات استشارية شهرية</li>
+                        </ul>
+                        <a href="https://wa.me/22224555506?text=مرحباً، أريد الاستفسار عن الخطة المؤسسية" target="_blank" rel="noopener noreferrer" class="plan-cta" data-lang-key="planCta">استفسر عن الخطة</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HORIZON QUOTE — dusk -->
+        <section class="scene quote-scene" id="horizon" data-bg="dusk">
+            <div class="scene-photo" aria-hidden="true"><img src="assets/desert/dusk-m.jpg" alt="" loading="lazy"></div>
+            <div class="scene-inner">
+                <div class="quote-orn reveal" aria-hidden="true">۞</div>
+                <p class="display quote-text reveal" style="--d: 0.15s" data-lang-key="quote2">
+                    كل مشروع رحلة — وأجمل الرحلات تلك التي نقطعها <em>معًا</em> حتى الأفق.
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTACT — dusk -->
+        <section class="scene contact" id="contact" data-bg="dusk">
+            <div class="scene-photo" aria-hidden="true"><img src="assets/desert/dusk-m.jpg" alt="" loading="lazy"></div>
+            <div class="scene-inner">
+                <div class="scene-tag reveal"><span class="mono" data-lang-key="sec5Tag">٠٦ · التواصل</span></div>
+                <h2 class="display contact-title reveal" style="--d: 0.1s" data-lang-key="contactTitle">لِنَبدأ الحديث</h2>
+                <p class="contact-desc reveal" style="--d: 0.2s" data-lang-key="contactDesc">أفضل طريقة للبدء هي محادثة مباشرة. أخبرني عن مشروعك، وسأقدّم لك رؤية واضحة قبل أن تدفع أي شيء.</p>
+                <div class="contact-actions reveal" style="--d: 0.3s">
+                    <a href="https://wa.me/22224555506" target="_blank" rel="noopener noreferrer" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <span data-lang-key="ctaWa">واتساب مباشر</span>
+                    </a>
+                    <a href="tel:+22224555506" class="btn-call" data-lang-key="ctaCall">اتصال هاتفي</a>
+                </div>
+                <div class="contact-number reveal" style="--d: 0.4s">
+                    <span class="mono">+222 24 55 55 06 · Nouakchott, Mauritanie</span>
+                </div>
+                <div class="photo-credits reveal" style="--d: 0.5s">
+                    <a class="mono" href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Photos: Wikimedia Commons — T. Fuhrmann, V. Guillot, O. Havelka, F. Colin, Bertramz, M. Natti (CC BY-SA / CC0)</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            'use strict';
+
+            /* ==================== TRANSLATIONS ==================== */
+            const translations = {
+                ar: {
+                    hudRole: 'مطوّر مواقع المؤسسات',
+                    scrollHint: 'مرّر',
+                    heroEyebrow: 'مطوّر مواقع المؤسسات — موريتانيا',
+                    heroName: 'محمد عبد السلام',
+                    heroTag: 'سيكولوجية الرغبة تُقابل التسويق الرقمي',
+                    heroSub: 'أبني للمؤسسات مواقع كاملة ومتاجر إلكترونية بلوحات تحكم سهلة — حضور رقمي يليق بمؤسستك، ويبيع.',
+                    sec1Tag: '٠١ · الرؤية',
+                    manifesto: 'مواقع ومتاجر تُبنى <em>بصبر الصحراء</em>، وتُصقل <em>بدقّة الذهب</em>، وتُصمَّم <em>لتُحرّك الرغبة</em> — رحلة تبدأ بفهم عميق لجمهورك، وتنتهي بحضور رقمي يليق بمؤسستك ويبيع.',
+                    stat1Num: '+٧', stat1: 'سنوات في سيكولوجية الرغبة والمبيعات',
+                    stat2Num: '+٥', stat2: 'سنوات في التسويق الرقمي',
+                    stat3Num: '+٢٠٠', stat3: 'مشروع لمؤسسات وأعمال رائدة',
+                    quote1: 'كما حفظت <em>شنقيط</em> المعرفةَ في مخطوطاتها تسعة قرون، أحفظ لمؤسستك مكانتها في العالم الرقمي.',
+                    quote1Src: 'مخطوطات شنقيط — موريتانيا',
+                    methodTag: '٠٢ · الطريقة',
+                    methodTitle: 'أربع محطات من الفكرة إلى الإطلاق',
+                    m1t: 'الإصغاء',
+                    m1d: 'أبدأ بالاستماع: قصة مؤسستك، أهدافك، وجمهورك. لا تصميم قبل الفهم — فالموقع الناجح يُبنى على معرفة دقيقة بمن سيزوره ولماذا.',
+                    m2t: 'التصميم',
+                    m2d: 'أرسم تجربة تقود الزائر بهدوء نحو القرار — تسلسل الصفحات، الرسائل، والألوان، كلها مبنية على سيكولوجية الرغبة وهوية علامتك.',
+                    m3t: 'البناء',
+                    m3d: 'أبني موقعًا سريعًا وآمنًا متعدد اللغات، بلوحة تحكم بسيطة تُحدّث بها محتواك بنفسك دون أي خبرة تقنية.',
+                    m4t: 'الإطلاق والمرافقة',
+                    m4d: 'أطلق موقعك وأتابع أداءه بالأرقام، وأرافقك بالتحسين والدعم حتى يحقق الهدف الذي بُني لأجله.',
+                    quote2: 'كل مشروع رحلة — وأجمل الرحلات تلك التي نقطعها <em>معًا</em> حتى الأفق.',
+                    sec2Tag: '٠٣ · الخبرات',
+                    servicesTitle: 'خبرات تتكامل لتُنتج نتائج',
+                    svc4Title: 'بناء مواقع المؤسسات',
+                    svc4Desc: 'مواقع مؤسسية ومتاجر إلكترونية كاملة متعددة اللغات (عربي، فرنسي، إنجليزي)، بلوحة تحكم سهلة تُدير بها محتواك بنفسك دون خبرة تقنية — سريعة، آمنة، ومتقنة على الجوال والحاسوب، من الفكرة إلى الإطلاق.',
+                    svc2Title: 'سيكولوجية الرغبة',
+                    svc2Desc: '7 سنوات من الدراسة والتطبيق في علم نفس الرغبة — أعرف متى يشتري العميل، ولماذا يتردد، وكيف أُقنعه دون أن يشعر أنه يُقاد. أطبّق مبادئ الندرة، الدليل الاجتماعي، والتحيّزات المعرفية بدقة.',
+                    svc3Title: 'التسويق الرقمي الاستراتيجي',
+                    svc3Desc: '5 سنوات في خنادق التسويق الرقمي — من تحليل البيانات إلى تحسين الحملات. أربط بين الصفحة والسوق، فأضمن أن التصميم لا يُعجب فقط، بل يُحقّق أرقاماً.',
+                    svc1Title: 'تصميم صفحات الهبوط',
+                    svc1Desc: 'تصاميم احترافية مبنية على فهم عميق لسلوك المستخدم، مع دعم كامل للغات متعددة (العربية، الإنجليزية، الفرنسية) وتجربة سلسة على جميع الأجهزة. كل بكسل في مكانه لخدمة هدف التحويل.',
+                    sec3Tag: '٠٤ · الأعمال',
+                    worksTitle: 'مشاريع حيّة الآن',
+                    workLive: 'يعمل الآن',
+                    work1Meta: 'متجر ثلاثي اللغات بلوحة تحكم · المعدات الطبية',
+                    work2Title: 'سند SENED',
+                    work2Meta: 'موقع مؤسسي فاخر بنظام بلاغات · المعدات الطبية',
+                    sec4Tag: '٠٥ · الخطط',
+                    plansTitle: 'اختر الخطة التي تناسب مؤسستك',
+                    plansDesc: 'جميع الخطط قابلة للتخصيص حسب احتياجاتك. تواصل معي لمناقشة التفاصيل واستلام عرض سعر مخصص.',
+                    plan1Name: 'الأساسية',
+                    plan1Desc: 'للمؤسسات الناشئة التي تريد صفحة هبوط احترافية واحدة.',
+                    plan1f1: 'موقع تعريفي مؤسسي أو صفحة هبوط',
+                    plan1f2: 'دعم لغتين (العربية + الإنجليزية)',
+                    plan1f3: 'تصميم متجاوب مع جميع الأجهزة',
+                    plan1f4: 'تكامل مع واتساب ونماذج التواصل',
+                    plan1f5: 'تحسين أساسي لمحركات البحث',
+                    plan1f6: 'تسليم خلال 5-7 أيام عمل',
+                    plan2Name: 'المتكاملة',
+                    plan2Desc: 'للمؤسسات المتوسطة الباحثة عن حل تسويقي متكامل مع سيكولوجية المبيعات.',
+                    plan2f1: 'موقع مؤسسي كامل + حتى 3 صفحات هبوط',
+                    plan2f2: 'دعم ثلاث لغات (عربية + إنجليزية + فرنسية)',
+                    plan2f3: 'تطبيق مبادئ سيكولوجية الرغبة',
+                    plan2f4: 'تحليل الجمهور المستهدف ورسائل مقنعة',
+                    plan2f5: 'تكامل مع أدوات التسويق (Google، Meta)',
+                    plan2f6: 'تقارير أداء شهرية',
+                    plan2f7: 'دعم فني لمدة 30 يوماً',
+                    plan3Name: 'المؤسسية',
+                    plan3Desc: 'للمؤسسات الكبيرة والمشاريع المعقدة التي تحتاج حلاً شاملاً ومخصصاً بالكامل.',
+                    plan3f1: 'مواقع ومتاجر إلكترونية وصفحات بلا حدود',
+                    plan3f2: 'استراتيجية مبيعات متكاملة',
+                    plan3f3: 'بحث متقدم في سيكولوجية الجمهور',
+                    plan3f4: 'تكامل مع أنظمة المؤسسة (CRM)',
+                    plan3f5: 'تحسين مستمر بناءً على البيانات',
+                    plan3f6: 'دعم فني وأولوية في التنفيذ',
+                    plan3f7: 'جلسات استشارية شهرية',
+                    planBadge: 'الأكثر طلباً',
+                    planCta: 'استفسر عن الخطة',
+                    sec5Tag: '٠٦ · التواصل',
+                    contactTitle: 'لِنَبدأ الحديث',
+                    contactDesc: 'أفضل طريقة للبدء هي محادثة مباشرة. أخبرني عن مشروعك، وسأقدّم لك رؤية واضحة قبل أن تدفع أي شيء.',
+                    ctaWa: 'واتساب مباشر',
+                    ctaCall: 'اتصال هاتفي',
+                },
+                en: {
+                    hudRole: 'Institutional Web Developer',
+                    scrollHint: 'Scroll',
+                    heroEyebrow: 'Institutional Web Developer — Mauritania',
+                    heroName: 'Mohamed Abdelsalam',
+                    heroTag: 'Psychology of Desire Meets Digital Marketing',
+                    heroSub: 'I build complete websites and online stores with easy admin panels for institutions — a digital presence worthy of your institution, that sells.',
+                    sec1Tag: '01 · Vision',
+                    manifesto: 'Websites and stores built with <em>the desert\'s patience</em>, polished with <em>the precision of gold</em>, designed <em>to move desire</em> — a journey that begins with a deep understanding of your audience and ends with a digital presence worthy of your institution, one that sells.',
+                    stat1Num: '+7', stat1: 'Years in psychology of desire & sales',
+                    stat2Num: '+5', stat2: 'Years in digital marketing',
+                    stat3Num: '+200', stat3: 'Projects for leading institutions & businesses',
+                    quote1: 'As <em>Chinguetti</em> guarded knowledge in its manuscripts for nine centuries, I guard your institution\'s standing in the digital world.',
+                    quote1Src: 'The manuscripts of Chinguetti — Mauritania',
+                    methodTag: '02 · The Method',
+                    methodTitle: 'Four Stations from Idea to Launch',
+                    m1t: 'Listening',
+                    m1d: 'I start by listening: your institution\'s story, goals, and audience. No design before understanding — a successful website is built on knowing exactly who will visit it, and why.',
+                    m2t: 'Design',
+                    m2d: 'I craft an experience that calmly leads the visitor toward a decision — page flow, messaging, and color, all grounded in the psychology of desire and your brand identity.',
+                    m3t: 'Build',
+                    m3d: 'I build a fast, secure, multilingual website with a simple admin panel that lets you update your content yourself — no technical experience needed.',
+                    m4t: 'Launch & Care',
+                    m4d: 'I launch your website, track its performance with real numbers, and stay beside you with optimization and support until it achieves what it was built for.',
+                    quote2: 'Every project is a journey — and the finest journeys are the ones we take <em>together</em>, all the way to the horizon.',
+                    sec2Tag: '03 · Expertise',
+                    servicesTitle: 'Integrated Expertise That Delivers Results',
+                    svc4Title: 'Institutional Website Development',
+                    svc4Desc: 'Complete multilingual corporate websites and online stores (Arabic, French, English), with an easy admin panel to manage your content yourself — fast, secure, and polished on mobile and desktop, from idea to launch.',
+                    svc2Title: 'Psychology of Desire',
+                    svc2Desc: '7 years of study and application in desire psychology — I know when a customer buys, why they hesitate, and how to persuade without them feeling led. I apply scarcity, social proof, and cognitive biases with precision.',
+                    svc3Title: 'Strategic Digital Marketing',
+                    svc3Desc: '5 years in the digital marketing trenches — from data analysis to campaign optimization. I connect the page to the market, ensuring the design doesn\'t just impress, but delivers numbers.',
+                    svc1Title: 'Landing Page Design',
+                    svc1Desc: 'Professional designs built on deep understanding of user behavior, with full multilingual support (Arabic, English, French) and seamless experience across all devices. Every pixel serves the conversion goal.',
+                    sec3Tag: '04 · Works',
+                    worksTitle: 'Projects Live Right Now',
+                    workLive: 'Live now',
+                    work1Meta: 'Trilingual store with admin panel · Medical equipment',
+                    work2Title: 'SENED',
+                    work2Meta: 'Premium corporate site with complaints system · Medical equipment',
+                    sec4Tag: '05 · Plans',
+                    plansTitle: 'Choose the Plan That Fits Your Institution',
+                    plansDesc: 'All plans are customizable to your needs. Contact me to discuss details and receive a tailored quote.',
+                    plan1Name: 'Essential',
+                    plan1Desc: 'For startups seeking a single professional landing page.',
+                    plan1f1: 'One corporate site or landing page',
+                    plan1f2: 'Bilingual support (Arabic + English)',
+                    plan1f3: 'Fully responsive design',
+                    plan1f4: 'WhatsApp & contact form integration',
+                    plan1f5: 'Basic SEO optimization',
+                    plan1f6: 'Delivery within 5-7 business days',
+                    plan2Name: 'Integrated',
+                    plan2Desc: 'For mid-sized institutions seeking a complete marketing solution with sales psychology.',
+                    plan2f1: 'Full institutional website + up to 3 landing pages',
+                    plan2f2: 'Trilingual support (AR + EN + FR)',
+                    plan2f3: 'Desire psychology principles applied',
+                    plan2f4: 'Target audience analysis & persuasive copy',
+                    plan2f5: 'Marketing tools integration (Google, Meta)',
+                    plan2f6: 'Monthly performance reports',
+                    plan2f7: '30-day technical support',
+                    plan3Name: 'Enterprise',
+                    plan3Desc: 'For large institutions and complex projects requiring a fully customized comprehensive solution.',
+                    plan3f1: 'Unlimited websites, stores & landing pages',
+                    plan3f2: 'Full sales strategy integration',
+                    plan3f3: 'Advanced audience psychology research',
+                    plan3f4: 'CRM & enterprise system integration',
+                    plan3f5: 'Continuous data-driven optimization',
+                    plan3f6: 'Priority support & execution',
+                    plan3f7: 'Monthly consulting sessions',
+                    planBadge: 'Most Requested',
+                    planCta: 'Inquire About This Plan',
+                    sec5Tag: '06 · Contact',
+                    contactTitle: 'Let\'s Talk',
+                    contactDesc: 'The best way to begin is a direct chat. Tell me about your project, and I\'ll give you a clear vision before you commit to anything.',
+                    ctaWa: 'WhatsApp Direct',
+                    ctaCall: 'Phone Call',
+                },
+                fr: {
+                    hudRole: 'Développeur Web Institutionnel',
+                    scrollHint: 'Défiler',
+                    heroEyebrow: 'Développeur Web Institutionnel — Mauritanie',
+                    heroName: 'Mohamed Abdelsalam',
+                    heroTag: 'La Psychologie du Désir Rencontre le Marketing Digital',
+                    heroSub: 'Je construis pour les institutions des sites complets et des boutiques en ligne avec panneaux d\'administration simples — une présence digitale digne de votre institution, qui vend.',
+                    sec1Tag: '01 · Vision',
+                    manifesto: 'Des sites et des boutiques bâtis avec <em>la patience du désert</em>, polis avec <em>la précision de l\'or</em>, conçus pour <em>éveiller le désir</em> — un voyage qui commence par une compréhension profonde de votre public et s\'achève par une présence digitale digne de votre institution, qui vend.',
+                    stat1Num: '+7', stat1: 'Ans en psychologie du désir & vente',
+                    stat2Num: '+5', stat2: 'Ans en marketing digital',
+                    stat3Num: '+200', stat3: 'Projets pour institutions & entreprises leaders',
+                    quote1: 'Comme <em>Chinguetti</em> a gardé le savoir dans ses manuscrits durant neuf siècles, je garde la place de votre institution dans le monde numérique.',
+                    quote1Src: 'Les manuscrits de Chinguetti — Mauritanie',
+                    methodTag: '02 · La Méthode',
+                    methodTitle: 'Quatre Étapes, de l\'Idée au Lancement',
+                    m1t: 'L\'écoute',
+                    m1d: 'Je commence par écouter : l\'histoire de votre institution, vos objectifs, votre public. Pas de design avant la compréhension — un site réussi se construit en sachant précisément qui le visitera, et pourquoi.',
+                    m2t: 'Le design',
+                    m2d: 'Je dessine une expérience qui guide calmement le visiteur vers la décision — parcours, messages et couleurs, fondés sur la psychologie du désir et votre identité de marque.',
+                    m3t: 'La construction',
+                    m3d: 'Je construis un site rapide, sécurisé et multilingue, avec un panneau d\'administration simple pour mettre à jour votre contenu vous-même — sans aucune expérience technique.',
+                    m4t: 'Lancement & suivi',
+                    m4d: 'Je lance votre site, je suis ses performances avec des chiffres réels, et je reste à vos côtés — optimisation et support — jusqu\'à ce qu\'il atteigne son objectif.',
+                    quote2: 'Chaque projet est un voyage — et les plus beaux sont ceux que l\'on parcourt <em>ensemble</em>, jusqu\'à l\'horizon.',
+                    sec2Tag: '03 · Expertises',
+                    servicesTitle: 'Des Compétences Intégrées Qui Produisent des Résultats',
+                    svc4Title: 'Développement de Sites Institutionnels',
+                    svc4Desc: 'Sites institutionnels et boutiques en ligne complets et multilingues (arabe, français, anglais), avec un panneau d\'administration simple pour gérer votre contenu vous-même — rapides, sécurisés et soignés sur mobile et ordinateur, de l\'idée au lancement.',
+                    svc2Title: 'Psychologie du Désir',
+                    svc2Desc: '7 ans d\'étude et d\'application en psychologie du désir — je sais quand un client achète, pourquoi il hésite, et comment persuader sans qu\'il se sente manipulé. J\'applique rareté, preuve sociale et biais cognitifs avec précision.',
+                    svc3Title: 'Marketing Digital Stratégique',
+                    svc3Desc: '5 ans dans les tranchées du marketing digital — de l\'analyse de données à l\'optimisation des campagnes. Je relie la page au marché pour garantir que le design ne fait pas qu\'impressionner, mais livre des chiffres.',
+                    svc1Title: 'Conception de Pages d\'Atterrissage',
+                    svc1Desc: 'Designs professionnels basés sur une compréhension approfondie du comportement utilisateur, avec support multilingue complet (arabe, anglais, français) et expérience fluide sur tous les appareils.',
+                    sec3Tag: '04 · Projets',
+                    worksTitle: 'Projets En Ligne Actuellement',
+                    workLive: 'En ligne',
+                    work1Meta: 'Boutique trilingue avec panneau admin · Équipement médical',
+                    work2Title: 'SENED',
+                    work2Meta: 'Site corporate premium avec système de réclamations · Équipement médical',
+                    sec4Tag: '05 · Plans',
+                    plansTitle: 'Choisissez le Plan Adapté à Votre Institution',
+                    plansDesc: 'Tous les plans sont personnalisables selon vos besoins. Contactez-moi pour discuter des détails et recevoir un devis sur mesure.',
+                    plan1Name: 'Essentiel',
+                    plan1Desc: 'Pour les startups cherchant une page d\'atterrissage professionnelle unique.',
+                    plan1f1: 'Un site vitrine ou une page d\'atterrissage',
+                    plan1f2: 'Support bilingue (Arabe + Anglais)',
+                    plan1f3: 'Design entièrement responsive',
+                    plan1f4: 'Intégration WhatsApp & formulaire',
+                    plan1f5: 'Optimisation SEO de base',
+                    plan1f6: 'Livraison sous 5-7 jours ouvrés',
+                    plan2Name: 'Intégré',
+                    plan2Desc: 'Pour les institutions de taille moyenne cherchant une solution marketing complète avec psychologie de vente.',
+                    plan2f1: 'Site institutionnel complet + jusqu\'à 3 pages d\'atterrissage',
+                    plan2f2: 'Support trilingue (AR + EN + FR)',
+                    plan2f3: 'Principes de psychologie du désir appliqués',
+                    plan2f4: 'Analyse d\'audience & copy persuasive',
+                    plan2f5: 'Intégration outils marketing (Google, Meta)',
+                    plan2f6: 'Rapports de performance mensuels',
+                    plan2f7: 'Support technique 30 jours',
+                    plan3Name: 'Enterprise',
+                    plan3Desc: 'Pour les grandes institutions et projets complexes nécessitant une solution complète entièrement personnalisée.',
+                    plan3f1: 'Sites, boutiques et pages illimités',
+                    plan3f2: 'Stratégie de vente complète intégrée',
+                    plan3f3: 'Recherche avancée en psychologie d\'audience',
+                    plan3f4: 'Intégration CRM & systèmes d\'entreprise',
+                    plan3f5: 'Optimisation continue basée sur les données',
+                    plan3f6: 'Support prioritaire & exécution rapide',
+                    plan3f7: 'Sessions de consultation mensuelles',
+                    planBadge: 'Le Plus Demandé',
+                    planCta: 'Demander Ce Plan',
+                    sec5Tag: '06 · Contact',
+                    contactTitle: 'Parlons-en',
+                    contactDesc: 'La meilleure façon de commencer est un échange direct. Parlez-moi de votre projet, et je vous donnerai une vision claire avant tout engagement.',
+                    ctaWa: 'WhatsApp Direct',
+                    ctaCall: 'Appel Téléphonique',
+                }
+            };
+
+            let currentLang = 'ar';
+            try { currentLang = localStorage.getItem('rim_dev_lang') || 'ar'; } catch (e) {}
+            if (!translations[currentLang]) currentLang = 'ar';
+
+            function applyTranslations(lang) {
+                const data = translations[lang];
+                if (!data) return;
+                currentLang = lang;
+                document.querySelectorAll('[data-lang-key]').forEach(el => {
+                    const key = el.getAttribute('data-lang-key');
+                    if (data[key] !== undefined) el.innerHTML = data[key];
+                });
+                document.documentElement.setAttribute('lang', lang);
+                document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                });
+                try { localStorage.setItem('rim_dev_lang', lang); } catch (e) {}
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyTranslations(btn.getAttribute('data-lang')));
+            });
+
+            if (currentLang !== 'ar') applyTranslations(currentLang);
+
+            /* ==================== PRELOADER ==================== */
+            const preNum = document.getElementById('preloaderNum');
+            const preBar = document.getElementById('preloaderBar');
+            const preStart = performance.now();
+            const preDuration = window.matchMedia('(max-width: 768px)').matches ? 900 : 1700;
+
+            function preTick(now) {
+                const raw = Math.min(1, (now - preStart) / preDuration);
+                const eased = 1 - Math.pow(1 - raw, 3);
+                preNum.textContent = String(Math.floor(eased * 100)).padStart(3, '0');
+                preBar.style.width = (eased * 100) + '%';
+                if (raw < 1) requestAnimationFrame(preTick);
+                else document.body.classList.add('loaded');
+            }
+            requestAnimationFrame(preTick);
+            /* safety: never trap the visitor behind the preloader */
+            setTimeout(function () { document.body.classList.add('loaded'); }, preDuration + 800);
+
+            /* ==================== SCROLL STATE ==================== */
+            let scrollT = 0;
+            function updateScroll() {
+                const total = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+                scrollT = Math.min(1, window.scrollY / total);
+                document.body.classList.toggle('scrolled', window.scrollY > 40);
+            }
+            window.addEventListener('scroll', updateScroll, { passive: true });
+            updateScroll();
+
+            /* ==================== PHOTO JOURNEY BACKGROUNDS (desktop) ==================== */
+            const phoneMQ = window.matchMedia('(max-width: 768px)');
+            const bgPhotos = document.querySelectorAll('.bg-ph');
+            function loadBgs() {
+                if (phoneMQ.matches) return;
+                bgPhotos.forEach(function (el) {
+                    if (!el.style.backgroundImage) {
+                        el.style.backgroundImage = 'url("' + el.getAttribute('data-src') + '")';
+                    }
+                });
+            }
+            loadBgs();
+            window.addEventListener('resize', loadBgs);
+
+            const bgByName = {};
+            bgPhotos.forEach(function (el) { bgByName[el.getAttribute('data-name')] = el; });
+            let bgActive = document.querySelector('.bg-ph.on');
+            const bgIO = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (!en.isIntersecting) return;
+                    const name = en.target.getAttribute('data-bg');
+                    const ph = bgByName[name];
+                    if (!ph || ph === bgActive) return;
+                    if (bgActive) bgActive.classList.remove('on');
+                    bgActive = ph;
+                    ph.classList.add('on');
+                });
+            }, { threshold: 0.35 });
+            document.querySelectorAll('[data-bg]').forEach(function (s) { bgIO.observe(s); });
+            /* ==================== EMERGE REVEALS ==================== */
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+            document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+            /* ==================== CURSOR ==================== */
+            if (window.matchMedia('(pointer: fine)').matches) {
+                const dot = document.querySelector('.cursor-dot');
+                const ring = document.querySelector('.cursor-ring');
+                let rx = 0, ry = 0, cx2 = 0, cy2 = 0;
+                window.addEventListener('mousemove', (e) => {
+                    cx2 = e.clientX; cy2 = e.clientY;
+                    dot.style.transform = 'translate(' + (cx2 - 2.5) + 'px,' + (cy2 - 2.5) + 'px)';
+                }, { passive: true });
+                (function ringLoop() {
+                    rx += (cx2 - rx) * 0.13;
+                    ry += (cy2 - ry) * 0.13;
+                    ring.style.transform = 'translate(' + (rx - 17) + 'px,' + (ry - 17) + 'px)';
+                    requestAnimationFrame(ringLoop);
+                })();
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+                });
+            }
+
+            /* ==================== SIGNATURE ==================== */
+            console.log('%c ۞ سيكولوجية الرغبة تُقابل التسويق الرقمي %c +222 24 55 55 06 ',
+                'background:#080502;color:#e8bf6a;padding:6px 12px;font-size:12px;',
+                'background:#c99a3f;color:#080502;padding:6px 12px;font-size:12px;');
+        })();
+    </script>
+</body>
+</html>
